@@ -1,0 +1,8 @@
+/dist
+/build
+.vscode
+.idea
+*.egg-info
+dev-docs
+packing-venv
+dev-venv
