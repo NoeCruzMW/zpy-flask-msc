@@ -31,11 +31,12 @@ class HTTP_METHODS(Enum):
 
 
 class ZResource(MethodView):
+    __name__ = "ZResource"
     blocked_methods = []
 
     def __init__(self) -> None:
         super().__init__()
-        print(f"Zurck'z  - Core Resource was iniitalized for {request.path}")
+        print(f"Zurck'z  - Core Resource was iniitalized")
 
     def __method_not_allowed(self):
         return Builder().add_status(Status.METHOD_NOT_ALLOWED).build()
