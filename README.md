@@ -70,19 +70,53 @@ Contains some helper features with specific integrations.
 
 ## Basic Usage
 
+Define restful resource
+
+```python
+from zpy.api.resource import ZResource, HTTP_METHODS
+
+
+class UserResource(ZResource):
+
+    def __init__(self, **kwargs) -> None:
+        super().__init__()
+        # Receive any dependency by keywords arguments
+
+    def get(self):
+        l, i = super().new_operation()
+        try:
+            return self.success({"user": {"name":"Zurckz"}}, logger=l)
+        except Exception as e:
+            return self.handle_exceptions(e, l, i)
+
+```
+
+Setup api
+
 ```python
 #Define api
-@api(base='/v1', config=config,hooks=hk,middlewares=mw)
+@api(base='/v1', config=config)
 def create_api():
-    #Define all dependencies for enterprise resources
-    service = CompanyService(repository=CompanyRepositoryImpl(db))
     #Set all supported resource for this web service.
     return \
     [
-        ZResource('/', CompanyResource,service=service),
-        ...
+        ZResource('/', UserResource)
     ]
 ```
+
+Local Dev Deploy
+
+```python
+from api import create_api
+
+app = create_api()
+
+# 🚨 Only use it in local tests 💻
+if __name__ == "__main__":
+    app.run(host="localhost", debug=True)
+
+```
+
 
 ## Contributing
 
